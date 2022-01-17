@@ -6,6 +6,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pandas as pd
 
+import sys
+
 # Selenium4対応済
 
 
@@ -73,21 +75,22 @@ def main():
     一覧から同一条件で複数のデータを取得する場合は、こちらを使用する
     '''
     name_elms = driver.find_elements(by=By.CLASS_NAME, value="cassetteRecruit__name")
-    
+    title_elms = driver.find_elements(by=By.XPATH, value="//p[@class='cassetteRecruit__copy boxAdjust']/a" )
     # 空のDataFrame作成
     df = pd.DataFrame()
-
+    
     # 1ページ分繰り返し
     print(len(name_elms))
     '''
     name_elmsには１ページ分の情報が格納されているのでforでループさせて１つづつ取り出して、Dataframeに格納する
     '''
-    for name_elm in name_elms:
-        print(name_elm.text)
+    for i in range(len(name_elms)):
+        print(name_elms[i].text)
+        print(title_elms[i].text)
         # DataFrameに対して辞書形式でデータを追加する
         df = df.append(
-            {"会社名": name_elm.text, 
-            "項目B": "",
+            {"会社名": name_elms[i].text, 
+            "タイトル": title_elms[i].text, 
             "項目C": ""}, 
             ignore_index=True)
         
