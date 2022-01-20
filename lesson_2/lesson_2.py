@@ -1,12 +1,10 @@
-from fileinput import lineno
-import os,sys 
+import os
 from selenium.webdriver import Chrome, ChromeOptions
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pandas as pd
-import urllib.parse
 
 # Selenium4対応済
 
