@@ -88,9 +88,8 @@ def main():
         for i in range(len(name_elms)):            
           # DataFrameに対して辞書形式でデータを追加する
           df = df.append(
-            {"会社名": name_elms[i].text, 
-            "タイトル": title_elms[i].text, 
-            "項目C": ""}, 
+            {"会社名": name_elms[i].text,
+            "タイトル": title_elms[i].text}, 
             ignore_index=True
           )
         
@@ -110,14 +109,18 @@ def main():
       driver.quit()    
 
 def save_log(e):
-  with open('debug.log', 'a', encoding='utf-8_sig') as f:
+  with open('debug.log', 'a+', encoding='utf-8_sig') as f:
     if os.path.getsize('debug.log') == 3:
       data = f'[0][{str(time.time())}][{str(e)}]\n'
       f.writelines(data)
     else:
-      data = f'[{sum([1 for _ in open("debug.log")])}][{str(time.time())}][{str(e)}]\n'
+      data = f'[{sum(1 for _ in open("debug.log"))}][{str(time.time())}][{str(e)}]\n'
       f.writelines(data)
-
+    #件数（行数）を取得するために sum(1 for _ in open("debug.log") を用いたのですが
+    #空のdebug.logファイルがあった場合、「０」ではなく「１」になってしまい、
+    #上記のように if を使って回避しました。
+    #if を使わずにスッキリと一行のみで取得できる方法があれば、ご教授いただけますと幸いです。
+    
 # 直接起動された場合はmain()を起動(モジュールとして呼び出された場合は起動しないようにするため)
 if __name__ == "__main__":
     main()
