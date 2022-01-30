@@ -5,15 +5,66 @@
     </head>
     <body>
         <h2>eelテスト</h2>
-        <script type="text/javascript" src="./eel.js"></script>
-        <script>
-            search.addEventListener('click', () => {
+        <form method="get" id="serch_form" action="#">
+            <label>検索先CSV: </label>
+            <input type="file" id="input_file" onchange="outputFile()"><br><br>
+            <label>CSV保存先: </label>
+            <input type="text" id="output_file" size=40><br><br>
+            <input type="text" id="keywordtext" placeholder="検索キーワードを入力">
+            <input type="button" id='ckeckButton' value="検索" onclick="return check()"><br><br>
+        </form>
+        <textarea id="msg" class="txt"></textarea>
 
-            })
-
-            eel.expose(view_log_js)
-            function view_log_js(text){
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript">
+            function check(){
+                let formElem = document.getElementById('keywordtext').value;
+                if(formElem == "") {
+                    alert("キーワードを入力してください。");
+                    return false;
+                }
+                return true;
             }
+            
+            function buttonClick(){
+                var input_file = document.getElementById("input_file").value;
+                var path =  document.getElementById("output_file").value
+                eel.kimetsu_search(keywordtext.value, input_file, path);
+            }
+
+            eel.expose(abs_path);
+            function abs_path(path){
+                document.getElementById("output_file").value = path
+            }
+
+            function outputFile(){
+                var file_path = document.getElementById("input_file").value;
+                /* console.log(file_path);
+                document.getElementById("output_file").value = */
+                eel.path_search(file_path); 
+            }
+
+            /* eel.expose(result_of_search);
+            function result_of_search(result){
+                document.getElementById("msg").innerHTML = result;
+            }*/
+
+            let keywordtext = document.getElementById('keywordtext');
+            let msg = document.getElementById('msg');
+            
+            let checkButton = document.getElementById('checkButton');
+            ckeckButton.addEventListener('click',buttonClick);
+
+            /* search.addEventListener('click', () => {
+            }) */
+
+            eel.expose(view_log_js);
+            function view_log_js(text){
+                let log_msg = document.getElementById("msg").innerHTML;
+                let total_msg = log_msg + text;
+                document.getElementById("msg").innerHTML = total_msg; 
+            }
+
         </script>
     </body>
 </html>
