@@ -1,5 +1,14 @@
 .txt{
   resize: none;
-  width:300px;
+  width:450px;
   height:300px;
+}
+
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
+body {
+  display: block;
+  margin: 8px;
 }

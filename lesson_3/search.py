@@ -1,16 +1,14 @@
 import pandas as pd
 import eel
 import os
-import re
+import sys
 
 ### デスクトップアプリ作成課題
-def kimetsu_search(word, input_path, path):
-    name = re.search(r"C:\\fakepath\\(.*)" , input_path)
-    file_name = name.group(1) #type: ignore
-    
+def kimetsu_search(word, path, file_name):
     # 検索対象取得
-    file_path = os.path.abspath(file_name)
-    df=pd.read_csv(file_path)
+    file_dir = os.path.dirname(sys.argv[0])
+    dir = os.path.dirname(file_dir)
+    df=pd.read_csv(os.path.join(dir, file_name))
     source=list(df["name"]) #type: ignore
     # 検索
     if word in source:

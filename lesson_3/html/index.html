@@ -1,15 +1,19 @@
+<!doctype html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>eelテスト</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
         <h2>eelテスト</h2>
         <form method="get" id="serch_form" action="#">
             <label>検索先CSV: </label>
-            <input type="file" id="input_file" onchange="outputFile()"><br><br>
+            <input type="text" id="input_file" size=40 onchange="outputFile()"><br><br>
             <label>CSV保存先: </label>
-            <input type="text" id="output_file" size=40><br><br>
+            <input type="text" id="output_file" size=40 ><br><br>
             <input type="text" id="keywordtext" placeholder="検索キーワードを入力">
             <input type="button" id='ckeckButton' value="検索" onclick="return check()"><br><br>
         </form>
@@ -29,7 +33,7 @@
             function buttonClick(){
                 var input_file = document.getElementById("input_file").value;
                 var path =  document.getElementById("output_file").value
-                eel.kimetsu_search(keywordtext.value, input_file, path);
+                eel.kimetsu_search(keywordtext.value, path, input_file);
             }
 
             eel.expose(abs_path);
@@ -39,15 +43,8 @@
 
             function outputFile(){
                 var file_path = document.getElementById("input_file").value;
-                /* console.log(file_path);
-                document.getElementById("output_file").value = */
                 eel.path_search(file_path); 
             }
-
-            /* eel.expose(result_of_search);
-            function result_of_search(result){
-                document.getElementById("msg").innerHTML = result;
-            }*/
 
             let keywordtext = document.getElementById('keywordtext');
             let msg = document.getElementById('msg');
@@ -66,5 +63,8 @@
             }
 
         </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
     </body>
 </html>
