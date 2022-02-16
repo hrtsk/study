@@ -29,8 +29,8 @@ class Order(Item):
                 print("お金が不足しています。")
                 continue
             else:
+                self.receipt_list.append(f"お預かり金: {deposit}")
                 break
-        self.receipt_list.append(f"お預かり金: {deposit}")
         print(f'{change}円のお返しになります。')
         self.receipt_list.append(f"お釣り: {change}")
         
@@ -72,7 +72,10 @@ def main():
     order=Order(item_master)
     while True:
         order_code = input("オーダーしたい商品のコードを入力してください >> ")
-        if int(order_code) > len(item_master) or int(order_code) == 0:
+        for item in item_master:
+            if item.__dict__["item_code"] == order_code:
+                break
+        else:
             print("そのコードの商品は登録されておりません。")
             continue
         order_num = input("オーダーしたい個数を入力してください >> ")
