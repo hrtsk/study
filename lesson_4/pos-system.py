@@ -73,7 +73,7 @@ def main():
     while True:
         order_code = input("オーダーしたい商品のコードを入力してください >> ")
         for item in item_master:
-            if item.__dict__["item_code"] == order_code:
+            if item.item_code == order_code:
                 break
         else:
             print("そのコードの商品は登録されておりません。")
