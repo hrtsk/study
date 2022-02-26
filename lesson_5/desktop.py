@@ -15,7 +15,6 @@ CHROME_ARGS = [
 ]
 ALLOW_EXTENSIONS = ['.html', '.css', '.js', '.ico']
 
-
 def start(appName, endpoint,size):  # 画面生成
     eel.init(appName, allowed_extensions=ALLOW_EXTENSIONS)
     # 未使用ポート取得

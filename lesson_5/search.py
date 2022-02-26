@@ -3,15 +3,24 @@ import eel
 import os
 import sys
 
-### デスクトップアプリ作成課題
-def kimetsu_search(word, path, file_name):
+#def kimetsu_search(word, path, file_name):
+def main():
+    
     # 検索対象取得
+    """"
     file_dir = os.path.dirname(sys.argv[0])
     dir = os.path.dirname(file_dir)
     df=pd.read_csv(os.path.join(dir, file_name))
     source=list(df["name"]) #type: ignore
+    """
+    CSV_PATH = './item_master.csv'
+    df = pd.read_csv(CSV_PATH, dtype=str, encoding='utf_8_sig') #type: ignore
+    code_list = list(df["item_code"])
+    
+    code_num = eel.codeNumByJs() #type: ignore
+    
     # 検索
-    if word in source:
+    if code_num in code_list:
         msg_1 = "『{}』はあります。\n".format(word)
         print(msg_1)
         eel.view_log_js(msg_1) #type: ignore
@@ -32,3 +41,5 @@ def kimetsu_search(word, path, file_name):
     df.to_csv(path, encoding="utf_8-sig")
     print(source)
     
+if __name__ == "__main__":
+    main()

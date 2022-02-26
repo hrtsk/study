@@ -9,68 +9,51 @@
     </head>
     <body>
         <h2>lesson5 POS-System</h2>
-        <form method="get" id="serch_form" action="#">
-            <label>商品一覧CSV: </label>
-            <input type="text" id="input_file" size=40 onchange="outputFile()"><br><br>
-            <label>レシート保存先: </label>
-            <input type="text" id="output_file" size=40><br><br>
-            <label>商品コード: </label>
-            <input type="text" id="keywordtext" placeholder="検索キーワードを入力"><br><br>
-            <label>個数: </label>
-            <input type="text" id="" placeholder="検索キーワードを入力">
-            <input type="button" id='ckeckButton' value="検索" onclick="return check()"><br><br>
-        </form>
-        <textarea id="msg" class="txt"></textarea>
-        <form method="get" id="serch_form" action="#">
-            <label>お預かり金額: </label>
-            <input type="text" id="" size=40 onchange="outputFile()"><br><br>
-            <input type="text" id="" placeholder="検索キーワードを入力">
-            <input type="button" id='ckeckButton' value="検索" onclick="return check()"><br><br>
-        </form>
-        <textarea id="" class="txt"></textarea>
-
+        <div id="content">
+            <div id="left_content">
+                <form method="get" id="serch_form" action="#">
+                    <label>商品一覧CSV: </label><br>
+                    <input type="text" id="input_file" size="35" value="item_master.csv"><br><br>
+                    <label>商品コード: </label>
+                    <input type="text" id="code" placeholder="商品コードを入力"><br><br>
+                    <label>個数: </label>
+                    <input type="text" id="num" placeholder="購入個数を入力"><br><br>
+                    <input type="button" id="BuyButton" value="カートに入れる"><br><br><br>
+                    <label>お預かり: </label>
+                    <input type="text" id="deposit" placeholder="金額を入力" size="35"><br><br>
+                    <input type="button" id="CkeckButton" value="支払い"><br><br>
+                </form>
+            </div>
+            <div id="right_content">
+                <textarea id="txt" readonly="readonly"></textarea>
+            </div>
+        </div>
         <script type="text/javascript" src="/eel.js"></script>
-        <script type="text/javascript">
-            function check(){
-                let formElem = document.getElementById('keywordtext').value;
-                if(formElem == "") {
-                    alert("キーワードを入力してください。");
-                    return false;
-                }
-                return true;
-            }
+        <script type="text/javascript">            
+            BuyButton.addEventListener('click', buyButtonF);
             
-            function buttonClick(){
-                var input_file = document.getElementById("input_file").value;
-                var path =  document.getElementById("output_file").value
-                eel.kimetsu_search(keywordtext.value, path, input_file);
-            }
+            function buyButtonF() {
+                let input_file = document.getElementById('input_file').value;
+                let code = document.getElementById('code').value;
+                let num = document.getElementById('num').value;
+                eel.print_cart_by_py(input_file, code, num);
+            };
 
-            eel.expose(abs_path);
-            function abs_path(path){
-                document.getElementById("output_file").value = path
-            }
+            eel.expose(printReceiptByJs);
+            function printReceiptByJs(receipt) {
+                document.getElementById('txt').value = receipt;
+            };
 
-            function outputFile(){
-                var file_path = document.getElementById("input_file").value;
-                eel.path_search(file_path); 
-            }
+            CkeckButton.addEventListener('click', () => {
+                let deposit = document.getElementById('deposit').value;
+                eel.calculate_change_by_py(deposit);
+                BuyButton.removeEventListener('click', buyButtonF);
+            });
 
-            let keywordtext = document.getElementById('keywordtext');
-            let msg = document.getElementById('msg');
-            
-            let checkButton = document.getElementById('checkButton');
-            ckeckButton.addEventListener('click',buttonClick);
-
-            /* search.addEventListener('click', () => {
-            }) */
-
-            eel.expose(view_log_js);
-            function view_log_js(text){
-                let log_msg = document.getElementById("msg").innerHTML;
-                let total_msg = log_msg + text;
-                document.getElementById("msg").innerHTML = total_msg; 
-            }
+            eel.expose(errorMessage);
+            function errorMessage(word) {
+                alert(word)
+            };
 
         </script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -1,7 +1,7 @@
-.txt{
+#txt{
   resize: none;
-  width:450px;
-  height:300px;
+  width:280px;
+  height:400px;
 }
 
 .selector-for-some-widget {
@@ -11,4 +11,27 @@
 body {
   display: block;
   margin: 8px;
+}
+
+#left_content {
+  background-color: lightblue;
+  margin: 8px;
+  padding: 8px;
+}
+#right_content {
+  background-color: lightblue;
+  margin: 8px;
+  padding: 8px;
+}
+
+@media (min-width: 710px) {
+  #content {
+    display: flex;
+  }
+  #left_content {
+    flex-grow: 3;
+  }
+  #right_content {
+    flex-grow: 1;
+  }
 }
