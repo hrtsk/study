@@ -13,7 +13,7 @@
             <div id="left_content">
                 <form method="get" id="serch_form" action="#">
                     <label>商品一覧CSV: </label><br>
-                    <input type="text" id="input_file" size="35" value="item_master.csv"><br><br>
+                    <input type="text" id="input_file" size="35"><br><br>
                     <label>商品コード: </label>
                     <input type="text" id="code" placeholder="商品コードを入力"><br><br>
                     <label>個数: </label>
@@ -44,15 +44,20 @@
                 document.getElementById('txt').value = receipt;
             };
 
-            CkeckButton.addEventListener('click', () => {
+            CkeckButton.addEventListener('click', checkButtonF);
+            
+            function checkButtonF () {
+                let input_file = document.getElementById('input_file').value
                 let deposit = document.getElementById('deposit').value;
-                eel.calculate_change_by_py(deposit);
+                eel.calculate_change_by_py(input_file,deposit);
+                alert("ご購入、ありがとうございます");
                 BuyButton.removeEventListener('click', buyButtonF);
-            });
+                BuyButton.removeEventListener('click', checkButtonF);
+            };
 
             eel.expose(errorMessage);
             function errorMessage(word) {
-                alert(word)
+                alert(word);
             };
 
         </script>
