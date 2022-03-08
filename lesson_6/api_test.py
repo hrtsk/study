@@ -29,23 +29,23 @@ def test_get_api():
   
   assert len(res["Items"]) == 0
   
-def test_task2():
-  result = task2()
+def test_get_items():
+  result = get_items()
   
   assert result["Items"]
   assert result["Items"][0]["Item"]["itemName"]
   assert result["Items"][0]["Item"]["itemPrice"]
   
 
-def test_task3():
-  max, min = task3()
+def test_get_item_mix_max_price():
+  max, min = get_item_mix_max_price()
 
   assert max
   assert min
   assert max > min
   
-def test_task4():
-  result = task4()
+def test_get_items_by_category():
+  result = get_items_by_category()
   
   assert result["Items"]
   assert len(result["Items"]) >= 1

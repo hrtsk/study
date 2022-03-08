@@ -2,6 +2,8 @@ import requests
 import pandas as pd
 import datetime
 
+APP_ID = "1081675625476532194"
+
 def get_datetime():
   dt_now = datetime.datetime.now()
   return dt_now.strftime('%Y%m%d')
@@ -10,14 +12,13 @@ def get_api(url, params: dict):
   result = requests.get(url, params=params)
   return result.json()
 
-def task2():
+def get_items():
   url = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706"
-  appid = "1081675625476532194"
   
   params = {
     "format": "json",
     "keyword": "Python",
-    "applicationId": appid
+    "applicationId": APP_ID
   }
   result = get_api(url, params=params)
   
@@ -25,14 +26,12 @@ def task2():
   print(result["Items"][0]["Item"]["itemPrice"])
   return result
 
-def task3():
+def get_item_mix_max_price():
   url = "https://app.rakuten.co.jp/services/api/Product/Search/20170426"
-  appid = "1081675625476532194"
-
   params = {
     "format": "json",
     "productId": "6de7af896684b9e71647d70ddcaec07f",
-    "applicationId": appid
+    "applicationId": APP_ID
   }
 
   result = get_api(url, params=params)
@@ -45,15 +44,14 @@ def task3():
   print(min)
   return max, min
   
-def task4():
+def get_items_by_category():
   url = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20170628"
-  appid = "1081675625476532194"
   genreid = 558929
   
   params = {
     "format": "json",
     "genreId": genreid,
-    "applicationId": appid
+    "applicationId": APP_ID
   }
 
   result = get_api(url, params=params)
@@ -69,4 +67,6 @@ def task4():
   return result
 
 if __name__ == '__main__':
-  task3()
+  get_items()
+  get_item_mix_max_price()
+  get_items_by_category()
